@@ -1,0 +1,129 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-cyber-black: #0a0a0a;
+  --color-cyber-blue: #00f5ff;
+  --color-neon-purple: #6c63ff;
+  --color-terminal-green: #00ff9c;
+  
+  /* Saptech Modern Futuristic Palette */
+  --color-saptech-dark: #050b14;
+  --color-saptech-panel: #0a1526;
+  --color-saptech-blue: #0070f2;
+  --color-saptech-cyan: #00e5ff;
+  --color-saptech-glow: rgba(0, 229, 255, 0.4);
+  --color-saptech-white: #e2e8f0;
+  --color-saptech-muted: #64748b;
+
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+@layer base {
+  body {
+    @apply bg-cyber-black text-gray-300 font-sans selection:bg-cyber-blue selection:text-cyber-black;
+  }
+}
+
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -1px 0 var(--color-cyber-blue);
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -1px 0 var(--color-neon-purple);
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(10px, 9999px, 83px, 0);
+  }
+  20% {
+    clip: rect(66px, 9999px, 12px, 0);
+  }
+  40% {
+    clip: rect(11px, 9999px, 99px, 0);
+  }
+  60% {
+    clip: rect(44px, 9999px, 33px, 0);
+  }
+  80% {
+    clip: rect(88px, 9999px, 55px, 0);
+  }
+  100% {
+    clip: rect(22px, 9999px, 77px, 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(65px, 9999px, 100px, 0);
+  }
+  20% {
+    clip: rect(3px, 9999px, 5px, 0);
+  }
+  40% {
+    clip: rect(80px, 9999px, 40px, 0);
+  }
+  60% {
+    clip: rect(20px, 9999px, 80px, 0);
+  }
+  80% {
+    clip: rect(50px, 9999px, 20px, 0);
+  }
+  100% {
+    clip: rect(90px, 9999px, 60px, 0);
+  }
+}
+
+.scanline {
+  width: 100%;
+  height: 100px;
+  z-index: 50;
+  position: absolute;
+  pointer-events: none;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 245, 255, 0.2) 10%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0.1;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+.grid-bg {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(0, 245, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+}
