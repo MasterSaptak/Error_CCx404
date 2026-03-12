@@ -13,9 +13,23 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://error-ccx404.saptech.online"),
   title: "Error_CCx404 | Where Builders Debug the Future",
   description:
     "Error_CCx404 is a DevOps and innovation community under Saptech, focusing on software development, cybersecurity, robotics, IoT, hackathons, and startup innovation.",
+  openGraph: {
+    title: "Error_CCx404 | Where Builders Debug the Future",
+    description: "A DevOps and innovation community by Saptech.",
+    url: "https://error-ccx404.saptech.online",
+    siteName: "Error_CCx404",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Error_CCx404 | Where Builders Debug the Future",
+    description: "A DevOps and innovation community by Saptech.",
+  },
 };
 
 export default function RootLayout({
