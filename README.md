@@ -7,9 +7,19 @@
 
 Welcome to the **Error_CCx404** workspace. This repository contains the source code for a high-performance community portal engineered with Next.js. Error_CCx404 is a DevOps and innovation community under Saptech, focusing on software development, cybersecurity, robotics, IoT, hackathons, and startup innovation.
 
+## ✨ Community Features & Highlights
+
+- **Interactive Portal**: A dedicated space for builders and innovators to collaborate, debate, and share knowledge.
+- **AI-Powered Insights**: Integrates Google Gemini API for intelligent features, smart search, and automation.
+- **Fluid User Experience**: High-performance interface built with Next.js 15 App Router, React 19, and tailored Framer Motion animations.
+- **Real-Time Data Sync**: Firebase powers real-time interactions, seamless authentication, and scalable storage.
+- **Innovation Hub**: Centralized resource for hackathons, startup networking, and deep-tech discussions.
+- **DevOps Practices**: Built with modern CI/CD principles and robust architecture in mind.
+
 ## 🚀 Tech Stack
 
 - **Framework:** [Next.js 15](https://nextjs.org/) (App Router & React Server Components)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
 - **Styling:** [Tailwind CSS 4.0](https://tailwindcss.com/)
 - **Backend/Database:** [Firebase](https://firebase.google.com/) (Firestore, Auth, Storage)
 - **AI Integration:** [Gemini API](https://deepmind.google/technologies/gemini/) (@google/genai)
@@ -56,3 +66,12 @@ To get this project running on your local machine, follow these steps.
 
 Ready for production? This project is fully optimized for platforms like [Vercel](https://vercel.com).
 Prior to deployment, ensure that all Environment Variables mirror your `.env.local` inside your production hosting settings.
+
+## 🤝 Contributing Guidelines
+
+We welcome contributions from fellow builders! As a DevOps and Innovation Community, Error_CCx404 thrives on shared knowledge. 
+Feel free to open issues or submit pull requests for enhancements, bug fixes, or new community features.
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
