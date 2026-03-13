@@ -71,6 +71,7 @@ export default function Navbar() {
           className="md:hidden bg-cyber-black border-b border-cyber-blue/20"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <div className="space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -89,8 +90,9 @@ export default function Navbar() {
               &gt; Join_Us
             </Link>
           </div>
-        </motion.div>
-      )}
+        </div>
+      </motion.div>
+    )}
     </nav>
   );
 }
