@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="100%" src=".github/assets/banner.png" alt="Project Banner" />
+  <img width="100%" src="public/background.png" alt="Project Banner" />
 </div>
 
 # Error_CCx404
