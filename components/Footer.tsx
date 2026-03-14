@@ -26,7 +26,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-gray-400 font-mono text-sm max-w-md leading-relaxed mb-6">
-              A premier DevOps and innovation community operating under Saptech.
+              An independent DevOps and innovation collective.
               We build the future through software development, cybersecurity,
               robotics, and IoT.
             </p>
@@ -98,7 +98,7 @@ export default function Footer() {
                   href="#"
                   className="hover:text-neon-purple transition-colors"
                 >
-                  Saptech Platform
+                  Collective Hub
                 </a>
               </li>
               <li>

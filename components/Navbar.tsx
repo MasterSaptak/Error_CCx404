@@ -72,27 +72,27 @@ export default function Navbar() {
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <div className="space-y-1">
-            {navLinks.map((link) => (
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="text-gray-300 hover:text-cyber-blue block px-3 py-2 rounded-md text-base font-mono"
+                >
+                  &gt; {link.name}
+                </Link>
+              ))}
               <Link
-                key={link.name}
-                href={link.href}
+                href="/join"
                 onClick={() => setIsOpen(false)}
-                className="text-gray-300 hover:text-cyber-blue block px-3 py-2 rounded-md text-base font-mono"
+                className="text-cyber-blue block px-3 py-2 rounded-md text-base font-mono font-bold"
               >
-                &gt; {link.name}
+                &gt; Join_Us
               </Link>
-            ))}
-            <Link
-              href="/join"
-              onClick={() => setIsOpen(false)}
-              className="text-cyber-blue block px-3 py-2 rounded-md text-base font-mono font-bold"
-            >
-              &gt; Join_Us
-            </Link>
+            </div>
           </div>
-        </div>
-      </motion.div>
-    )}
+        </motion.div>
+      )}
     </nav>
   );
 }

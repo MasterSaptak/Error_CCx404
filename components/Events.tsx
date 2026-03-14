@@ -5,7 +5,7 @@ import { Calendar, MapPin, Clock, ArrowRight } from "lucide-react";
 
 const events = [
   {
-    title: "Saptech Hackathon 2026",
+    title: "Error_CCx404 Hackathon 2026",
     date: "Oct 15-17, 2026",
     time: "48 Hours",
     location: "Main Campus & Online",

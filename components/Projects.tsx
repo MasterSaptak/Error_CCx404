@@ -15,9 +15,9 @@ const projects = [
     status: "Production",
   },
   {
-    title: "Saptech Core",
-    desc: "Internal community management platform for Saptech. Handles member onboarding, event registration, and project tracking.",
-    image: "https://picsum.photos/seed/saptech/800/600",
+    title: "VoidCore",
+    desc: "Centralized collective management system for Error_CCx404. Handles node onboarding, encrypted logs, and decentralized project tracking.",
+    image: "https://picsum.photos/seed/voidcore/800/600",
     tags: ["React", "Firebase", "Tailwind", "Vercel"],
     link: "#",
     github: "#",

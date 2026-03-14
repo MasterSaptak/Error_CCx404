@@ -38,9 +38,9 @@ export default function About() {
           >
             <p>
               <span className="text-terminal-green font-bold">&gt;</span>{" "}
-              Error_CCx404 is a premier DevOps and innovation community
-              operating under{" "}
-              <span className="text-neon-purple font-bold">Saptech</span>.
+              Error_CCx404 is a premier independent DevOps and innovation
+              collective focused on building the digital architecture of the
+              future.
             </p>
             <p>
               <span className="text-terminal-green font-bold">&gt;</span> We are
@@ -58,10 +58,10 @@ export default function About() {
 
             <div className="pt-6 flex items-center gap-4">
               <div className="px-4 py-2 border border-cyber-blue/30 bg-cyber-blue/5 rounded text-cyber-blue font-mono text-sm">
-                Status: Active
+                Status: Operational
               </div>
               <div className="px-4 py-2 border border-neon-purple/30 bg-neon-purple/5 rounded text-neon-purple font-mono text-sm">
-                Parent: Saptech
+                Network: Decentralized
               </div>
             </div>
           </motion.div>

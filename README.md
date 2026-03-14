@@ -5,7 +5,7 @@
 # Error_CCx404
 > **Where Builders Debug the Future**
 
-Welcome to the **Error_CCx404** workspace. This repository contains the source code for a high-performance community portal engineered with Next.js. Error_CCx404 is a DevOps and innovation community under Saptech, focusing on software development, cybersecurity, robotics, IoT, hackathons, and startup innovation.
+Welcome to the **Error_CCx404** workspace. This repository contains the source code for a high-performance community portal engineered with Next.js. Error_CCx404 is an independent DevOps and innovation collective focusing on software development, cybersecurity, robotics, IoT, hackathons, and radical tech innovation.
 
 ## ✨ Community Features & Highlights
 

@@ -25,12 +25,12 @@ const HighlightedCommand = ({ command, status }: { command: string, status?: 'su
 
   return (
     <span>
-      <span className="text-saptech-cyan font-bold">{baseCmd}</span>
+      <span className="text-cyber-blue font-bold">{baseCmd}</span>
       {args.map((arg, i) => {
         if (arg === '') return <span key={i}> </span>;
         const isFlag = arg.startsWith('-');
         return (
-          <span key={i} className={isFlag ? 'text-saptech-blue' : 'text-saptech-white'}>
+          <span key={i} className={isFlag ? 'text-neon-purple' : 'text-white'}>
             {' '}{arg}
           </span>
         );
@@ -66,13 +66,13 @@ export default function Terminal() {
 
   useEffect(() => {
     const logs = [
-      "INITIALIZING SYSTEM KERNEL v4.0.4...",
-      "LOADING NEURAL MODULES: [OK]",
-      "MOUNTING VIRTUAL FILE SYSTEM: [OK]",
-      "BYPASSING SECURITY PROTOCOLS: [OK]",
-      "ESTABLISHING SECURE CONNECTION...",
-      "CONNECTION ESTABLISHED.",
-      "WELCOME TO ERROR_CCX404 MAINFRAME."
+      "INITIALIZING ERROR_CCX404 KERNEL v1.0.0...",
+      "LOADING DEVIANT MODULES: [OK]",
+      "MOUNTING ENCRYPTED FILE SYSTEM: [OK]",
+      "SCANNING FOR INTRUSIONS: [NONE]",
+      "ESTABLISHING DECENTRALIZED NODE...",
+      "NODE OPERATIONAL.",
+      "WELCOME TO THE ERROR_CCX404 CONSOLE."
     ];
 
     let currentLog = 0;
@@ -100,17 +100,17 @@ export default function Terminal() {
   }, []);
 
   const getHelpOutput = () => (
-    <div className="text-saptech-white">
-      <p className="mb-2 font-bold text-saptech-cyan">Available commands:</p>
+    <div className="text-white">
+      <p className="mb-2 font-bold text-cyber-blue">Available modules:</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 ml-2">
-        <div><span className="text-saptech-cyan font-bold">about</span><span className="opacity-30">....</span> Learn about Error_CCx404</div>
-        <div><span className="text-saptech-cyan font-bold">projects</span><span className="opacity-30">.</span> List community projects</div>
-        <div><span className="text-saptech-cyan font-bold">events</span><span className="opacity-30">...</span> View upcoming events</div>
-        <div><span className="text-saptech-cyan font-bold">team</span><span className="opacity-30">.....</span> List team members</div>
-        <div><span className="text-saptech-cyan font-bold">join</span><span className="opacity-30">.....</span> Initiate onboarding</div>
-        <div><span className="text-saptech-cyan font-bold">whoami</span><span className="opacity-30">...</span> Print current user</div>
-        <div><span className="text-saptech-cyan font-bold">date</span><span className="opacity-30">.....</span> Print system date</div>
-        <div><span className="text-saptech-cyan font-bold">clear</span><span className="opacity-30">....</span> Clear terminal output</div>
+        <div><span className="text-cyber-blue font-bold">about</span><span className="opacity-30">....</span> Info on Error_CCx404</div>
+        <div><span className="text-cyber-blue font-bold">projects</span><span className="opacity-30">.</span> Community repository</div>
+        <div><span className="text-cyber-blue font-bold">events</span><span className="opacity-30">...</span> Timeline of operations</div>
+        <div><span className="text-cyber-blue font-bold">team</span><span className="opacity-30">.....</span> The collective</div>
+        <div><span className="text-cyber-blue font-bold">join</span><span className="opacity-30">.....</span> Protocol onboarding</div>
+        <div><span className="text-cyber-blue font-bold">whoami</span><span className="opacity-30">...</span> User identity</div>
+        <div><span className="text-cyber-blue font-bold">date</span><span className="opacity-30">.....</span> Temporal sync</div>
+        <div><span className="text-cyber-blue font-bold">clear</span><span className="opacity-30">....</span> Wipe buffer</div>
       </div>
     </div>
   );
@@ -184,35 +184,35 @@ export default function Terminal() {
     switch (cmd) {
       case "about":
         output = (
-          <div className="border-l-2 border-saptech-cyan pl-4 py-2 bg-saptech-cyan/5 rounded-r-md">
-            <p className="text-saptech-white">
-              <span className="text-saptech-cyan font-bold">Error_CCx404</span> is a DevOps and innovation community under Saptech, focusing on software development, cybersecurity, robotics, IoT, hackathons, and startup innovation.
+          <div className="border-l-2 border-cyber-blue pl-4 py-2 bg-cyber-blue/5 rounded-r-md">
+            <p className="text-white">
+              <span className="text-cyber-blue font-bold">Error_CCx404</span> is an independent DevOps and innovation collective focusing on software development, cybersecurity, robotics, and radical tech solutions.
             </p>
           </div>
         );
         break;
       case "projects":
         output = (
-          <ul className="space-y-2 text-saptech-white">
-            <li className="flex items-start"><span className="text-saptech-cyan mr-2">►</span> <span><span className="text-white font-bold">Dhopa</span> - Laundry Management Platform</span></li>
-            <li className="flex items-start"><span className="text-saptech-cyan mr-2">►</span> <span><span className="text-white font-bold">Saptech Core</span> - Community Management</span></li>
-            <li className="flex items-start"><span className="text-saptech-cyan mr-2">►</span> <span><span className="text-white font-bold">CyberDefend IoT</span> - Intrusion Detection System</span></li>
+          <ul className="space-y-2 text-white">
+            <li className="flex items-start"><span className="text-cyber-blue mr-2">►</span> <span><span className="text-white font-bold">Dhopa</span> - Intelligent Laundry Systems</span></li>
+            <li className="flex items-start"><span className="text-cyber-blue mr-2">►</span> <span><span className="text-white font-bold">NeuralCore</span> - Decentralized Management</span></li>
+            <li className="flex items-start"><span className="text-cyber-blue mr-2">►</span> <span><span className="text-white font-bold">VoidGuard IoT</span> - Perimeter Defense</span></li>
           </ul>
         );
         break;
       case "events":
         output = (
-          <div className="space-y-3 text-saptech-white">
-            <div className="flex justify-between border-b border-saptech-cyan/20 pb-1">
-              <span className="text-saptech-cyan font-bold">Saptech Hackathon 2026</span>
+          <div className="space-y-3 text-white">
+            <div className="flex justify-between border-b border-cyber-blue/20 pb-1">
+              <span className="text-cyber-blue font-bold">Code_Void Hackathon</span>
               <span className="opacity-70">Oct 15-17</span>
             </div>
-            <div className="flex justify-between border-b border-saptech-cyan/20 pb-1">
-              <span className="text-saptech-cyan font-bold">Cyber Defense Workshop</span>
+            <div className="flex justify-between border-b border-cyber-blue/20 pb-1">
+              <span className="text-cyber-blue font-bold">Distortion Workshop</span>
               <span className="opacity-70">Nov 05</span>
             </div>
-            <div className="flex justify-between border-b border-saptech-cyan/20 pb-1">
-              <span className="text-saptech-cyan font-bold">IoT & Robotics Expo</span>
+            <div className="flex justify-between border-b border-cyber-blue/20 pb-1">
+              <span className="text-cyber-blue font-bold">Robotic Synthesis Expo</span>
               <span className="opacity-70">Dec 12</span>
             </div>
           </div>
@@ -220,35 +220,35 @@ export default function Terminal() {
         break;
       case "team":
         output = (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-saptech-white">
-            <div className="bg-saptech-panel/50 p-3 rounded-lg border border-saptech-cyan/20 hover:border-saptech-cyan/60 transition-colors shadow-sm"><span className="text-saptech-cyan font-bold">Alex Mercer</span><br/><span className="text-xs text-saptech-muted">Lead Developer</span></div>
-            <div className="bg-saptech-panel/50 p-3 rounded-lg border border-saptech-cyan/20 hover:border-saptech-cyan/60 transition-colors shadow-sm"><span className="text-saptech-cyan font-bold">Sarah Chen</span><br/><span className="text-xs text-saptech-muted">Security Analyst</span></div>
-            <div className="bg-saptech-panel/50 p-3 rounded-lg border border-saptech-cyan/20 hover:border-saptech-cyan/60 transition-colors shadow-sm"><span className="text-saptech-cyan font-bold">David Kim</span><br/><span className="text-xs text-saptech-muted">Robotics Engineer</span></div>
-            <div className="bg-saptech-panel/50 p-3 rounded-lg border border-saptech-cyan/20 hover:border-saptech-cyan/60 transition-colors shadow-sm"><span className="text-saptech-cyan font-bold">Elena Rostova</span><br/><span className="text-xs text-saptech-muted">UI/UX Designer</span></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-white">
+            <div className="bg-white/5 p-3 rounded-lg border border-cyber-blue/20 hover:border-cyber-blue/60 transition-colors shadow-sm"><span className="text-cyber-blue font-bold">A. Mercer</span><br/><span className="text-xs text-gray-500">Core Architecture</span></div>
+            <div className="bg-white/5 p-3 rounded-lg border border-cyber-blue/20 hover:border-cyber-blue/60 transition-colors shadow-sm"><span className="text-cyber-blue font-bold">S. Chen</span><br/><span className="text-xs text-gray-500">Infosec Lead</span></div>
+            <div className="bg-white/5 p-3 rounded-lg border border-cyber-blue/20 hover:border-cyber-blue/60 transition-colors shadow-sm"><span className="text-cyber-blue font-bold">D. Kim</span><br/><span className="text-xs text-gray-500">Hardware Specialist</span></div>
+            <div className="bg-white/5 p-3 rounded-lg border border-cyber-blue/20 hover:border-cyber-blue/60 transition-colors shadow-sm"><span className="text-cyber-blue font-bold">E. Rostova</span><br/><span className="text-xs text-gray-500">Visual Lead</span></div>
           </div>
         );
         break;
       case "join":
         output = (
-          <div className="p-4 bg-saptech-blue/10 border border-saptech-blue/30 rounded-lg inline-block text-saptech-white shadow-[0_0_15px_rgba(0,112,242,0.1)]">
-            <span className="mr-3">Initiating onboarding sequence...</span>
+          <div className="p-4 bg-cyber-blue/10 border border-cyber-blue/30 rounded-lg inline-block text-white shadow-[0_0_15px_rgba(0,245,255,0.1)]">
+            <span className="mr-3">Initiating protocol sequence...</span>
             <Link
               href="/join"
-              className="text-saptech-dark bg-saptech-cyan px-4 py-1.5 rounded font-bold hover:bg-white transition-colors animate-pulse inline-block mt-2 sm:mt-0"
+              className="text-black bg-cyber-blue px-4 py-1.5 rounded font-bold hover:bg-white transition-colors animate-pulse inline-block mt-2 sm:mt-0"
             >
-              [CLICK_TO_PROCEED]
+              [AUTH_PROCEED]
             </Link>
           </div>
         );
         break;
       case "whoami":
-        output = <span>guest_user_{Math.floor(Math.random() * 10000)}</span>;
+        output = <span>visitor_{Math.floor(Math.random() * 10000)}</span>;
         break;
       case "date":
         output = <span>{new Date().toString()}</span>;
         break;
       case "sudo":
-        output = <span className="font-bold">ACCESS DENIED. This incident will be reported.</span>;
+        output = <span className="font-bold text-red-500">PERMISSION DENIED. System alert triggered.</span>;
         status = 'error';
         break;
       case "clear":
@@ -261,7 +261,7 @@ export default function Terminal() {
       default:
         output = (
           <span>
-            bash: {cmd}: command not found
+            error: {cmd}: command unavailable
           </span>
         );
         status = 'error';
@@ -276,19 +276,19 @@ export default function Terminal() {
 
   const PromptPrefix = () => (
     <span className="mr-3 flex-shrink-0 select-none">
-      <span className="text-saptech-cyan font-bold">guest@saptech-core</span>
-      <span className="text-saptech-muted">:</span>
-      <span className="text-saptech-blue">~</span>
-      <span className="text-saptech-muted">$</span>
+      <span className="text-cyber-blue font-bold">visitor@error-404</span>
+      <span className="text-gray-500">:</span>
+      <span className="text-neon-purple">~</span>
+      <span className="text-gray-500">$</span>
     </span>
   );
 
   return (
-    <section className="py-24 relative bg-saptech-dark overflow-hidden">
+    <section className="py-24 relative bg-black overflow-hidden">
       {/* Background Grid & Glow */}
-      <div className="absolute inset-0 z-0 opacity-30 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-saptech-blue/20 rounded-full blur-[150px]"></div>
-        <div className="w-full h-full" style={{ backgroundImage: 'linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyber-blue/10 rounded-full blur-[150px]"></div>
+        <div className="w-full h-full" style={{ backgroundImage: 'linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -300,10 +300,10 @@ export default function Terminal() {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-sans tracking-tight flex items-center justify-center gap-3">
-            <TerminalIcon className="w-10 h-10 text-saptech-cyan" />
-            Saptech.<span className="text-saptech-cyan">Terminal</span>()
+            <TerminalIcon className="w-10 h-10 text-cyber-blue" />
+            Error_CCx404.<span className="text-cyber-blue">Terminal</span>()
           </h2>
-          <div className="w-24 h-1 bg-saptech-cyan mx-auto rounded-full shadow-[0_0_15px_rgba(0,229,255,0.8)]"></div>
+          <div className="w-24 h-1 bg-cyber-blue mx-auto rounded-full shadow-[0_0_15px_rgba(0,245,255,0.8)]"></div>
         </motion.div>
 
         <motion.div
@@ -311,28 +311,28 @@ export default function Terminal() {
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-saptech-panel/80 backdrop-blur-2xl border border-saptech-cyan/20 rounded-2xl shadow-[0_0_50px_rgba(0,229,255,0.1)] overflow-hidden font-mono text-sm sm:text-base relative group"
+          className="bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(0,245,255,0.05)] overflow-hidden font-mono text-sm sm:text-base relative group"
           onClick={() => inputRef.current?.focus()}
         >
           {/* Terminal Header */}
-          <div className="flex items-center justify-between px-5 py-4 bg-saptech-dark/50 border-b border-saptech-cyan/20 select-none">
+          <div className="flex items-center justify-between px-5 py-4 bg-white/5 border-b border-white/10 select-none">
             <div className="flex space-x-2">
               <div className="w-3 h-3 rounded-full bg-red-500/80 shadow-[0_0_5px_rgba(239,68,68,0.5)]"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-500/80 shadow-[0_0_5px_rgba(234,179,8,0.5)]"></div>
-              <div className="w-3 h-3 rounded-full bg-saptech-cyan/80 shadow-[0_0_10px_rgba(0,229,255,0.5)]"></div>
+              <div className="w-3 h-3 rounded-full bg-cyber-blue/80 shadow-[0_0_10px_rgba(0,245,255,0.5)]"></div>
             </div>
-            <div className="flex items-center text-saptech-muted text-xs font-bold tracking-widest uppercase">
-              <ShieldAlert className="w-3 h-3 mr-2 text-saptech-cyan" /> 
-              Saptech_Core_Console
+            <div className="flex items-center text-gray-500 text-xs font-bold tracking-widest uppercase">
+              <ShieldAlert className="w-3 h-3 mr-2 text-cyber-blue" /> 
+              ERROR_CCX404_VIRTUAL_CONSOLE
             </div>
-            <div className="flex space-x-3 text-saptech-muted">
+            <div className="flex space-x-3 text-gray-500">
               <Cpu className="w-4 h-4" />
-              <Wifi className="w-4 h-4 text-saptech-cyan animate-pulse" />
+              <Wifi className="w-4 h-4 text-cyber-blue animate-pulse" />
             </div>
           </div>
 
           {/* Terminal Body */}
-          <div className="p-6 h-[480px] overflow-y-auto scrollbar-thin scrollbar-thumb-saptech-cyan/20 scrollbar-track-transparent">
+          <div className="p-6 h-[480px] overflow-y-auto scrollbar-thin scrollbar-thumb-cyber-blue/20 scrollbar-track-transparent">
             
             {/* Boot Sequence */}
             <AnimatePresence>
@@ -347,12 +347,12 @@ export default function Terminal() {
                       key={i}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className={`text-xs sm:text-sm ${log?.includes('[OK]') ? 'text-saptech-cyan' : log?.includes('ERROR') ? 'text-red-500' : 'text-saptech-muted'}`}
+                      className={`text-xs sm:text-sm ${log?.includes('[OK]') ? 'text-terminal-green' : log?.includes('ERROR') ? 'text-red-500' : 'text-gray-500'}`}
                     >
                       {log}
                     </motion.div>
                   ))}
-                  <div className="w-2 h-4 bg-saptech-cyan animate-pulse mt-2"></div>
+                  <div className="w-2 h-4 bg-cyber-blue animate-pulse mt-2"></div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -368,14 +368,14 @@ export default function Terminal() {
                       animate={{ opacity: 1, y: 0 }}
                       className="space-y-2"
                     >
-                      <div className="flex items-center text-saptech-white">
+                      <div className="flex items-center text-white">
                         <PromptPrefix />
                         <HighlightedCommand command={entry.command} status={entry.status} />
                       </div>
                       <div className={`pl-4 sm:pl-5 border-l-2 py-1 ${
                         entry.status === 'error' 
                           ? 'border-red-500/50 text-red-500' 
-                          : 'border-saptech-cyan/40 text-saptech-white'
+                          : 'border-white/10 text-white'
                       }`}>
                         {entry.output}
                       </div>
@@ -386,12 +386,12 @@ export default function Terminal() {
                 {/* Active Input Line */}
                 <form
                   onSubmit={handleCommand}
-                  className="flex items-center text-saptech-white mt-4"
+                  className="flex items-center text-white mt-4"
                 >
                   <PromptPrefix />
                   <div className="relative flex-1 flex items-center">
                     {suggestion && input && suggestion.startsWith(input.toLowerCase()) && (
-                      <span className="absolute text-saptech-muted pointer-events-none whitespace-pre z-0">
+                      <span className="absolute text-gray-500 pointer-events-none whitespace-pre z-0">
                         <span className="invisible">{input}</span>
                         <span>{suggestion.slice(input.length)}</span>
                       </span>
@@ -407,13 +407,13 @@ export default function Terminal() {
                       onKeyDown={handleKeyDown}
                       onKeyUp={(e) => setCursorPos(e.currentTarget.selectionStart || 0)}
                       onSelect={(e) => setCursorPos(e.currentTarget.selectionStart || 0)}
-                      className="relative bg-transparent outline-none text-transparent caret-transparent selection:bg-saptech-cyan/30 selection:text-white w-full z-10"
+                      className="relative bg-transparent outline-none text-transparent caret-transparent selection:bg-cyber-blue/30 selection:text-white w-full z-10"
                       spellCheck={false}
                       autoComplete="off"
                     />
                     {/* Custom Blinking Cursor */}
                     <span 
-                      className="absolute w-[1ch] h-[1.2em] bg-saptech-cyan/80 pointer-events-none animate-pulse z-0 shadow-[0_0_8px_rgba(0,229,255,0.6)]"
+                      className="absolute w-[1ch] h-[1.2em] bg-cyber-blue/80 pointer-events-none animate-pulse z-0 shadow-[0_0_8px_rgba(0,245,255,0.6)]"
                       style={{ left: `${cursorPos}ch`, top: '50%', transform: 'translateY(-50%)' }}
                     ></span>
                   </div>
