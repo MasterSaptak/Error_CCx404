@@ -4,7 +4,7 @@ import GameDevExperience from "@/components/GameDevExperience";
 import MiniGameZone from "@/components/MiniGameZone";
 import About from "@/components/About";
 import Domains from "@/components/Domains";
-import Projects from "@/components/Projects";
+import Innovations from "@/components/Innovations";
 import IdeaLab from "@/components/IdeaLab";
 import Events from "@/components/Events";
 import Team from "@/components/Team";
@@ -20,7 +20,7 @@ export default function Home() {
       <MiniGameZone />
       <About />
       <Domains />
-      <Projects />
+      <Innovations />
       <IdeaLab />
       <Events />
       <Team />

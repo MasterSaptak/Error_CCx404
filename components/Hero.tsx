@@ -73,7 +73,7 @@ export default function Hero() {
             Enter Game Lab
           </Link>
           <Link
-            href="#projects"
+            href="#innovations"
             className="group relative inline-flex items-center justify-center px-8 py-4 font-mono font-bold text-white border border-neon-purple rounded-md overflow-hidden transition-all hover:bg-neon-purple/10 hover:shadow-[0_0_30px_rgba(108,99,255,0.4)]"
           >
             <Code className="w-5 h-5 mr-2 text-neon-purple group-hover:animate-pulse" />
