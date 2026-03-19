@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { Terminal, Code, Zap } from "lucide-react";
+import TerminalSection from "@/components/Terminal";
 
 export default function Hero() {
   return (
@@ -19,12 +20,14 @@ export default function Hero() {
         <div className="w-[600px] h-[600px] bg-neon-purple/20 rounded-full blur-[100px] absolute -top-20 -right-20"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-6 text-center lg:text-left">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyber-blue/30 bg-cyber-blue/10 text-cyber-blue text-sm font-mono mb-8 backdrop-blur-sm"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyber-blue/30 bg-cyber-blue/10 text-cyber-blue text-sm font-mono mb-8 backdrop-blur-sm justify-center lg:justify-start"
         >
           <span className="w-2 h-2 rounded-full bg-cyber-blue animate-pulse"></span>
           System Status: Online
@@ -55,7 +58,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-10 flex flex-col sm:flex-row justify-center gap-4"
+          className="mt-10 flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
         >
           <Link
             href="/join"
@@ -86,7 +89,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto border-t border-white/10 pt-8"
+          className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto lg:mx-0 border-t border-white/10 pt-8"
         >
           {[
             { label: "Members", value: "500+" },
@@ -107,6 +110,20 @@ export default function Hero() {
             </div>
           ))}
         </motion.div>
+          </div>
+
+          {/* Hero-embedded Terminal (same UI, just compact) */}
+          <div className="lg:col-span-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.35 }}
+              className="w-full max-w-none mx-auto lg:ml-auto"
+            >
+              <TerminalSection variant="hero" />
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

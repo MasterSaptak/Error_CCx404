@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, useState, useEffect } from "react";
+import { useRef, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { 
   Float, 
@@ -15,7 +15,15 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-function MechCore({ selectedDomain }: { selectedDomain: string | null }) {
+function MechCore({
+  selectedDomain,
+  launchStage,
+  progress,
+}: {
+  selectedDomain: string | null;
+  launchStage: "idle" | "booting" | "syncing" | "online";
+  progress: number;
+}) {
   const meshRef = useRef<THREE.Mesh>(null);
   const coreRef = useRef<THREE.Group>(null);
   
@@ -43,41 +51,79 @@ function MechCore({ selectedDomain }: { selectedDomain: string | null }) {
     }
   });
 
+  const boost = useMemo(() => {
+    const p = Math.max(0, Math.min(100, progress)) / 100;
+    if (launchStage === "booting") return 0.45 + p * 0.9;
+    if (launchStage === "syncing") return 0.65 + p * 0.75;
+    if (launchStage === "online") return 1.15;
+    return 0.35;
+  }, [launchStage, progress]);
+
   return (
     <group ref={coreRef}>
       {/* Central Power Core */}
-      <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-        <Sphere ref={meshRef} args={[1, 64, 64]} scale={1.5}>
+      <Float
+        speed={2 + boost}
+        rotationIntensity={0.45 + boost * 0.25}
+        floatIntensity={0.35 + boost * 0.25}
+      >
+        <Sphere ref={meshRef} args={[1, 64, 64]} scale={1.45 + boost * 0.25}>
           <MeshDistortMaterial
             color={color}
-            speed={3}
-            distort={0.4}
+            speed={3 + boost * 2}
+            distort={0.35 + boost * 0.25}
             radius={1}
             emissive={color}
-            emissiveIntensity={2}
+            emissiveIntensity={1.8 + boost * 2.2}
           />
         </Sphere>
       </Float>
 
       {/* Orbiting Rings (Mechanical Feel) */}
       <Torus args={[2.5, 0.02, 16, 100]} rotation={[Math.PI / 2, 0, 0]}>
-        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={5} />
+        <meshStandardMaterial
+          color={color}
+          emissive={color}
+          emissiveIntensity={4 + boost * 4}
+          transparent
+          opacity={0.55 + boost * 0.25}
+        />
       </Torus>
       
       <Torus args={[2.8, 0.01, 16, 100]} rotation={[Math.PI / 4, Math.PI / 4, 0]}>
-        <meshStandardMaterial color="white" transparent opacity={0.3} />
+        <meshStandardMaterial
+          color="white"
+          transparent
+          opacity={0.22 + boost * 0.18}
+        />
       </Torus>
 
       {/* Domain Indicator Text (floating) */}
       {/* Domain label is rendered as HTML overlay in GameDevExperience to avoid font issues */}
       
       {/* Particles/Stars around core */}
-      <Stars radius={10} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+      <Stars
+        radius={10}
+        depth={50}
+        count={5000}
+        factor={4}
+        saturation={0}
+        fade
+        speed={1 + boost * 0.35}
+      />
     </group>
   );
 }
 
-function Scene({ selectedDomain }: { selectedDomain: string | null }) {
+function Scene({
+  selectedDomain,
+  launchStage,
+  progress,
+}: {
+  selectedDomain: string | null;
+  launchStage: "idle" | "booting" | "syncing" | "online";
+  progress: number;
+}) {
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={50} />
@@ -95,7 +141,11 @@ function Scene({ selectedDomain }: { selectedDomain: string | null }) {
       <pointLight position={[-10, -10, -10]} intensity={1} color="#6c63ff" />
       <spotLight position={[0, 5, 0]} intensity={2} angle={0.5} penumbra={1} castShadow />
 
-      <MechCore selectedDomain={selectedDomain} />
+      <MechCore
+        selectedDomain={selectedDomain}
+        launchStage={launchStage}
+        progress={progress}
+      />
       
       {/* Industrial Grid Floor */}
       <gridHelper args={[20, 20, 0x00f5ff, 0x111111]} position={[0, -4, 0]} />
@@ -105,11 +155,19 @@ function Scene({ selectedDomain }: { selectedDomain: string | null }) {
   );
 }
 
-export default function GameLab3D({ selectedDomain }: { selectedDomain: string | null }) {
+export default function GameLab3D({
+  selectedDomain,
+  launchStage,
+  progress,
+}: {
+  selectedDomain: string | null;
+  launchStage: "idle" | "booting" | "syncing" | "online";
+  progress: number;
+}) {
   return (
     <div className="w-full h-full min-h-[400px]">
       <Canvas shadows dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
-        <Scene selectedDomain={selectedDomain} />
+        <Scene selectedDomain={selectedDomain} launchStage={launchStage} progress={progress} />
       </Canvas>
     </div>
   );

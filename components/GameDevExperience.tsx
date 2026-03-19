@@ -151,6 +151,16 @@ export default function GameDevExperience() {
           ? { label: "FACTORY_PROCESS: ACTIVE", headline: "Synchronizing Domain Mesh..." }
           : { label: "FACTORY_PROCESS: COMPLETE", headline: "Core Online. SYNC_ACTIVE" };
 
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    // Fallback for non-section anchors / late-mounted sections.
+    window.location.hash = `#${id}`;
+  };
+
   return (
     <section id="game-lab" className="relative py-24 bg-cyber-black text-white overflow-hidden">
       {/* Background Ambience */}
@@ -279,7 +289,7 @@ export default function GameDevExperience() {
               
               {/* Main Visualizer / Portal */}
               <div className="absolute inset-0 z-0 pointer-events-none">
-                 <GameLab3D selectedDomain={selectedDomain} />
+                 <GameLab3D selectedDomain={selectedDomain} launchStage={launchStage} progress={progress} />
               </div>
 
               {/* Domain/Sync label (HTML overlay so it never blanks) */}
@@ -367,6 +377,7 @@ export default function GameDevExperience() {
                     <button
                       type="button"
                       onClick={() => {
+                        if (launchStage !== "idle") return;
                         timeoutsRef.current.forEach((id) => clearTimeout(id));
                         timeoutsRef.current = [];
                         if (progressIntervalRef.current)
@@ -376,7 +387,8 @@ export default function GameDevExperience() {
                         setProgress(0);
                         setSelectedDomain(null);
                       }}
-                      className="p-3 border border-white/20 text-white rounded hover:bg-white/10 transition-all"
+                      disabled={launchStage !== "idle"}
+                      className="p-3 border border-white/20 text-white rounded hover:bg-white/10 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <Settings className="w-4 h-4" />
                     </button>
@@ -423,20 +435,26 @@ export default function GameDevExperience() {
         <div className="mt-24 border-t border-white/10 pt-12">
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
               {[
-                { label: "Idea Lab", icon: <Activity className="w-5 h-5" /> },
-                { label: "Mech Factory", icon: <Cpu className="w-5 h-5" /> },
-                { label: "Warzone Dev", icon: <Terminal className="w-5 h-5" /> },
-                { label: "Logic Matrix", icon: <Code2 className="w-5 h-5" /> },
-                { label: "Core Sync", icon: <Zap className="w-5 h-5" /> },
+                { label: "Idea Lab", icon: <Activity className="w-5 h-5" />, targetId: "idea-lab" },
+                { label: "Mech Factory", icon: <Cpu className="w-5 h-5" />, targetId: "projects" },
+                { label: "Warzone Dev", icon: <Terminal className="w-5 h-5" />, targetId: "mini-games" },
+                { label: "Logic Matrix", icon: <Code2 className="w-5 h-5" />, targetId: "domains" },
+                { label: "Core Sync", icon: <Zap className="w-5 h-5" />, targetId: "innovations" },
               ].map((feature, i) => (
-                <div key={i} className="flex items-center gap-3 group cursor-pointer">
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => scrollToSection(feature.targetId)}
+                  className="flex items-center gap-3 group text-left"
+                  aria-label={`Go to ${feature.label}`}
+                >
                   <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-gray-500 group-hover:text-cyber-blue group-hover:bg-cyber-blue/10 transition-all border border-transparent group-hover:border-cyber-blue/30">
                     {feature.icon}
                   </div>
                   <span className="font-mono text-sm text-gray-400 group-hover:text-white uppercase tracking-tighter">
                     {feature.label}
                   </span>
-                </div>
+                </button>
               ))}
             </div>
         </div>
