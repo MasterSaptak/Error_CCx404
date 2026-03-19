@@ -10,7 +10,6 @@ import {
   Torus, 
   OrbitControls, 
   PerspectiveCamera, 
-  Text,
   MeshWobbleMaterial,
   Environment
 } from "@react-three/drei";
@@ -70,18 +69,7 @@ function MechCore({ selectedDomain }: { selectedDomain: string | null }) {
       </Torus>
 
       {/* Domain Indicator Text (floating) */}
-      {selectedDomain && (
-         <Text
-           position={[0, 4, 0]}
-           fontSize={0.5}
-           color={color}
-           font="/fonts/SpaceGrotesk-Bold.ttf"
-           anchorX="center"
-           anchorY="middle"
-         >
-           {selectedDomain.toUpperCase()}_SYNC_ACTIVE
-         </Text>
-      )}
+      {/* Domain label is rendered as HTML overlay in GameDevExperience to avoid font issues */}
       
       {/* Particles/Stars around core */}
       <Stars radius={10} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />

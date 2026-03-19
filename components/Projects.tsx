@@ -38,7 +38,7 @@ const projects = [
   {
     title: "IOBOTANICA",
     desc: "IoT-driven smart gardening system with ESP8266 automation. Features soil moisture sensing, DHT11 feedback, relay-controlled irrigation, and Blynk mobile integration.",
-    image: "https://images.unsplash.com/photo-1585336139118-89c15310f282?auto=format&fit=crop&q=80&w=800",
+    image: "/background.png",
     tags: ["ESP8266", "IoT", "Automation", "Embedded"],
     link: "#",
     github: "#",

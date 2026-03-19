@@ -43,10 +43,113 @@ const DOMAINS = [
   },
 ];
 
+type LaunchStage = "idle" | "booting" | "syncing" | "online";
+
 export default function GameDevExperience() {
-  const [activeTab, setActiveTab] = useState<string>("dev");
   const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
+  const [launchStage, setLaunchStage] = useState<LaunchStage>("idle");
+  const [progress, setProgress] = useState<number>(0);
+
+  const timeoutsRef = useRef<number[]>([]);
+  const progressIntervalRef = useRef<number | null>(null);
+
+  const domainIds = DOMAINS.map((d) => d.id);
+  const getNextDomain = (current: string) => {
+    const idx = domainIds.indexOf(current);
+    return domainIds[(idx + 1) % domainIds.length]!;
+  };
+
+  useEffect(() => {
+    return () => {
+      timeoutsRef.current.forEach((id) => clearTimeout(id));
+      timeoutsRef.current = [];
+      if (progressIntervalRef.current) window.clearInterval(progressIntervalRef.current);
+      progressIntervalRef.current = null;
+    };
+  }, []);
+
+  const handleLaunch = () => {
+    if (launchStage === "booting" || launchStage === "syncing") return;
+
+    // Clear previous timers/intervals before starting a new run.
+    timeoutsRef.current.forEach((id) => clearTimeout(id));
+    timeoutsRef.current = [];
+    if (progressIntervalRef.current) window.clearInterval(progressIntervalRef.current);
+    progressIntervalRef.current = null;
+
+    const current = selectedDomain ?? domainIds[0]!;
+    const next = launchStage === "online" ? getNextDomain(current) : current;
+
+    setSelectedDomain(next);
+    setLaunchStage("booting");
+    setProgress(5);
+
+    // Smooth progress while booting/syncing.
+    const start = Date.now();
+    const totalMs = 3600;
+    progressIntervalRef.current = window.setInterval(() => {
+      const elapsed = Date.now() - start;
+      const t = Math.min(1, elapsed / totalMs);
+      // Ease-out-ish progression, capped so stage changes still control final values.
+      setProgress((prev) => Math.min(96, Math.max(prev, Math.round(5 + t * 85))));
+    }, 120);
+
+    timeoutsRef.current.push(
+      window.setTimeout(() => {
+        setProgress(55);
+        setLaunchStage("syncing");
+      }, 1350)
+    );
+    timeoutsRef.current.push(
+      window.setTimeout(() => {
+        setProgress(78);
+      }, 2300)
+    );
+    timeoutsRef.current.push(
+      window.setTimeout(() => {
+        setProgress(100);
+        setLaunchStage("online");
+        if (progressIntervalRef.current) window.clearInterval(progressIntervalRef.current);
+        progressIntervalRef.current = null;
+      }, 3600)
+    );
+  };
+
+  const terminalLines =
+    launchStage === "idle"
+      ? [
+          `> Awaiting Launch Command...`,
+          `> Select a domain from the left panel`,
+          `> Press "Launch Lab" to sync the core`,
+        ]
+      : launchStage === "booting"
+        ? [
+            `> Initializing Physics Engine... OK`,
+            `> Loading Mech_rig_v2.glbf... ${Math.max(1, Math.min(99, progress))}%`,
+            `> Injecting Shaders [CYBER_GLOW]...`,
+            `> Running Build Script...`,
+          ]
+        : launchStage === "syncing"
+          ? [
+              `> Injecting Shaders [CYBER_GLOW]... OK`,
+              `> Calibrating Quantum Mesh... ${Math.max(1, Math.min(99, progress))}%`,
+              `> Validating Domain Link for ${String(selectedDomain ?? domainIds[0])?.toUpperCase()}... OK`,
+              `> Finalizing Core Snapshot...`,
+            ]
+          : [
+              `> Sync Complete: ${String(selectedDomain ?? domainIds[0])?.toUpperCase()}_SYNC_ACTIVE`,
+              `> Live Connection Established`,
+              `> Engine Ready for New Inputs`,
+            ];
+
+  const factoryHeader =
+    launchStage === "idle"
+      ? { label: "FACTORY_PROCESS: STANDBY", headline: "Ready To Launch..." }
+      : launchStage === "booting"
+        ? { label: "FACTORY_PROCESS: ACTIVE", headline: "Compiling Core Assets..." }
+        : launchStage === "syncing"
+          ? { label: "FACTORY_PROCESS: ACTIVE", headline: "Synchronizing Domain Mesh..." }
+          : { label: "FACTORY_PROCESS: COMPLETE", headline: "Core Online. SYNC_ACTIVE" };
 
   return (
     <section id="game-lab" className="relative py-24 bg-cyber-black text-white overflow-hidden">
@@ -73,7 +176,7 @@ export default function GameDevExperience() {
               The <span className="text-cyber-blue">Creation</span> Engine
             </h2>
             <p className="mt-2 text-gray-400 font-mono max-w-xl">
-              We don't just consume experiences. We architect the physics, logic, and infrastructure that power them. 
+              We don&apos;t just consume experiences. We architect the physics, logic, and infrastructure that power them.
               Step into the dev warzone.
             </p>
           </motion.div>
@@ -151,15 +254,21 @@ export default function GameDevExperience() {
                   <Terminal className="w-5 h-5 text-terminal-green" />
                 </div>
                 <div>
-                  <div className="text-xs font-mono text-gray-400 tracking-tighter leading-none mb-1">FACTORY_PROCESS: ACTIVE</div>
-                  <div className="text-sm font-bold text-white uppercase tracking-wider">Compiling Core Assets...</div>
+                  <div className="text-xs font-mono text-gray-400 tracking-tighter leading-none mb-1">
+                    {factoryHeader.label}
+                  </div>
+                  <div className="text-sm font-bold text-white uppercase tracking-wider">
+                    {factoryHeader.headline}
+                  </div>
                 </div>
               </div>
               <div className="font-mono text-[10px] text-gray-500 leading-tight">
-                {`> Initializing Physics Engine... OK`} <br />
-                {`> Loading Mech_rig_v2.glbf... 88%`} <br />
-                {`> Injecting Shaders [CYBER_GLOW]...`} <br />
-                {`> Running Build Script...`}
+                {terminalLines.map((line, i) => (
+                  <span key={i}>
+                    {line}
+                    {i < terminalLines.length - 1 ? <br /> : null}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
@@ -169,15 +278,31 @@ export default function GameDevExperience() {
             <div className="relative aspect-video lg:aspect-auto lg:flex-1 rounded-2xl border border-white/20 bg-black overflow-hidden shadow-2xl group">
               
               {/* Main Visualizer / Portal */}
-              <div className="absolute inset-0 z-0">
+              <div className="absolute inset-0 z-0 pointer-events-none">
                  <GameLab3D selectedDomain={selectedDomain} />
+              </div>
+
+              {/* Domain/Sync label (HTML overlay so it never blanks) */}
+              <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center">
+                <div className="px-6 py-4 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md shadow-[0_0_40px_rgba(0,245,255,0.08)]">
+                  <div className="font-mono text-[10px] text-cyber-blue uppercase tracking-[0.25em]">
+                    {launchStage === "online" ? "SYNC_ACTIVE" : "SYNC_BUFFER"}
+                  </div>
+                  <div className="mt-2 text-xl font-black text-white font-mono tracking-tighter uppercase">
+                    {(selectedDomain ?? domainIds[0]).toUpperCase()}_SYNC_ACTIVE
+                  </div>
+                </div>
               </div>
 
               {/* HUD Overlays */}
               <div className="absolute inset-x-0 top-0 p-6 z-10 flex justify-between pointer-events-none">
                 <div className="backdrop-blur-md bg-black/40 p-3 rounded border border-white/10">
                   <div className="flex items-center gap-2 mb-1">
-                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                    <div
+                      className={`w-2 h-2 rounded-full ${
+                        launchStage === "online" ? "bg-green-500" : "bg-cyber-blue"
+                      }`}
+                    ></div>
                     <span className="text-[10px] font-mono uppercase tracking-[0.2em]">Live Connection</span>
                   </div>
                   <div className="text-lg font-black text-white font-mono tracking-tighter">ENGINE_V4.0.2</div>
@@ -190,23 +315,69 @@ export default function GameDevExperience() {
               </div>
 
               {/* Bottom Interactive Bar */}
-              <div className="absolute inset-x-0 bottom-0 p-6 z-10">
+              <div className="absolute inset-x-0 bottom-0 p-6 z-20 pointer-events-auto">
                 <div className="flex flex-col md:flex-row items-end justify-between gap-4">
                   <div className="bg-black/60 backdrop-blur-xl p-4 rounded-lg border border-white/10 max-w-sm">
                     <h5 className="flex items-center gap-2 text-cyber-blue font-mono text-xs mb-2">
                        <Info className="w-3 h-3" /> DEV_LOG
                     </h5>
                     <p className="text-xs text-gray-300 font-mono leading-relaxed">
-                      "We architected this portal using <span className="text-white">Three.js</span> and <span className="text-white">R3F</span>. 
-                      Every vertex is calculated in real-time to simulate a neural network of innovation."
+                      {launchStage === "idle" && (
+                        <>
+                          Waiting for `Launch Lab`... Pick a domain on the left, then sync the core.
+                        </>
+                      )}
+                      {launchStage === "booting" && (
+                        <>
+                          Boot sequence running. Loading Mech rig assets... <span className="text-white">{Math.max(1, Math.min(99, progress))}%</span>
+                        </>
+                      )}
+                      {launchStage === "syncing" && (
+                        <>
+                          Calibrating domain mesh... <span className="text-white">{Math.max(1, Math.min(99, progress))}%</span>
+                        </>
+                      )}
+                      {launchStage === "online" && (
+                        <>
+                          Core online. <span className="text-white">{String(selectedDomain ?? domainIds[0]).toUpperCase()}_SYNC_ACTIVE</span>
+                        </>
+                      )}
                     </p>
                   </div>
 
                   <div className="flex gap-2">
-                    <button className="flex items-center gap-2 px-6 py-3 bg-cyber-blue text-black font-bold uppercase tracking-widest text-xs rounded hover:shadow-[0_0_20px_#00f5ff] transition-all">
-                      <Play className="w-4 h-4 fill-current" /> Launch Lab
+                    <button
+                      type="button"
+                      onClick={handleLaunch}
+                      onPointerDown={(e) => {
+                        // Some canvas layers can interfere with click timing; pointerdown is more reliable.
+                        e.preventDefault();
+                        handleLaunch();
+                      }}
+                      disabled={launchStage === "booting" || launchStage === "syncing"}
+                      className="flex items-center gap-2 px-6 py-3 bg-cyber-blue text-black font-bold uppercase tracking-widest text-xs rounded hover:shadow-[0_0_20px_#00f5ff] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                      <Play className="w-4 h-4 fill-current" />{" "}
+                      {launchStage === "idle"
+                        ? "Launch Lab"
+                        : launchStage === "online"
+                          ? "Re-Launch Lab"
+                          : "Launching..."}
                     </button>
-                    <button className="p-3 border border-white/20 text-white rounded hover:bg-white/10 transition-all">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        timeoutsRef.current.forEach((id) => clearTimeout(id));
+                        timeoutsRef.current = [];
+                        if (progressIntervalRef.current)
+                          window.clearInterval(progressIntervalRef.current);
+                        progressIntervalRef.current = null;
+                        setLaunchStage("idle");
+                        setProgress(0);
+                        setSelectedDomain(null);
+                      }}
+                      className="p-3 border border-white/20 text-white rounded hover:bg-white/10 transition-all"
+                    >
                       <Settings className="w-4 h-4" />
                     </button>
                   </div>

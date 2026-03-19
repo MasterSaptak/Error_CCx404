@@ -267,7 +267,7 @@ export default function Innovations() {
                             <div className="text-center space-y-4 relative group cursor-pointer" onClick={() => { setActiveProject('iobotanica'); setSimulationActive(true); }}>
                                <div className="relative w-64 h-48 rounded-2xl overflow-hidden border border-white/10">
                                   <Image 
-                                    src="https://images.unsplash.com/photo-1585336139118-89c15310f282?auto=format&fit=crop&q=80&w=600" 
+                                    src="/background.png"
                                     alt="IoBotanica"
                                     fill
                                     className="object-cover grayscale opacity-20 group-hover:opacity-40 transition-all duration-700"
